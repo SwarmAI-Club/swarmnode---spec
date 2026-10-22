@@ -16,6 +16,8 @@ Last updated: 2026-10-22.
 | Reference installer | ⏳ Phase 1 | — |
 | Self-hosted swarm compose + ACL generator | ⏳ Phase 1 | — |
 | Hardware BOM | ⏳ Phase 1–2 | — |
+| Device recipe schema + example | ✅ | `knowledge/` |
+| Recipe sanitizer + adapter registry | ⏳ Phase 2 | — |
 | Core implementation (Apache-2.0) | ⏳ Phase 2 | — |
 | Invite-only developer swarm | ⏳ Phase 2 | — |
 | Public registration / federation | ⏳ Phase 3 | — |
@@ -58,8 +60,10 @@ Deliverable: a stranger can install a self-hosted swarm from a clean Windows 11 
 - [ ] Compose file for a self-hosted Mosquitto broker with TLS.
 - [ ] ACL generator: one credential per node, controller-only queue writes.
 - [ ] Service templates: agent, bridge, optional dispatcher, restart policy, log hygiene.
-- [ ] Publish `swarmnode-knowledge` with schema and non-sensitive example lessons.
+- [ ] Publish `swarmnode-knowledge` with the schema, sanitizer rules and non-sensitive examples, including a `device_recipe`.
 - [ ] Publish `swarmnode-hardware` BOM and power/port notes (no solar build instructions).
+- [x] Device recipe schema: `kind`, `device`, `risk`, `steps`, `verification` and a sanitized example.
+- [ ] Sanitizer rules and fixtures: addresses, hostnames, entity IDs, room/account names, tokens.
 - [ ] Run `gitleaks`, dependency audit and a reproducible reference build.
 - [ ] Three external users complete the install unaided; record every failure.
 
@@ -73,6 +77,9 @@ Deliverable: the reference implementation is public and a small developer swarm 
 - [ ] Unit tests for task lifecycle, lease expiry, dedupe and lesson gate.
 - [ ] Integration test with a local broker (TLS, ACL, LWT, shared subscription).
 - [ ] SBOM and signed releases with checksums.
+- [ ] Adapter registry: Home Assistant, Tuya, Matter, MQTT, HTTP; device matching by category/vendor/model/protocol/firmware.
+- [ ] Recipe verification harness and risk policy: low auto after gate, medium first-run confirmation, high every-actuation confirmation.
+- [ ] Reproduction tracking for reputation (no token, no raw data).
 - [ ] Invite-only developer swarm, 3–20 nodes.
 - [ ] 30-day soak: lease/retry, LWT, lesson gate, no data loss.
 - [ ] Independent security review; publish a summary.
@@ -88,6 +95,7 @@ Deliverable: independent swarms can interoperate without a central account.
 - [ ] Reputation and contribution credits (no token).
 - [ ] Federation: a node may join more than one swarm.
 - [ ] Abuse handling: rate limits, revocation, takedown process.
+- [ ] Cross-swarm recipe exchange with provenance, revocation and abuse handling.
 - [ ] Privacy review of any new metadata.
 
 **Explicit non-goal:** a financial token. If that ever changes, it requires legal review and a separate design document; it is not on this roadmap.
@@ -98,6 +106,7 @@ Deliverable: independent swarms can interoperate without a central account.
 - Tested: the gate is automated, not a manual opinion.
 - Private by default: no raw data leaves the device unless the operator opts in.
 - Reversible: every migration has a rollback path.
+- Colony value: a second node can reproduce a shared device integration without receiving private data.
 - No secrets in git, logs or releases.
 
 ## What stays private

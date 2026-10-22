@@ -1,0 +1,36 @@
+{
+  "id": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "kind": "device_recipe",
+  "cue": "Add a Wi-Fi smart plug that supports local control",
+  "lesson": "Pair in the vendor app, enable local control, add the device to Home Assistant, then verify the state round-trip.",
+  "evidence": "Reproduced on two units with firmware 1.0.4; toggled 20 times without a miss.",
+  "confidence": "high",
+  "scope": ["smart-home", "plug", "home-assistant"],
+  "author": "ed25519:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "sig": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "created": "2026-10-22T00:00:00Z",
+  "expires": "2027-10-22",
+  "source": "community",
+  "version": 1,
+  "device": {
+    "category": "plug",
+    "vendor": "ExampleCo",
+    "model": "Plug X1",
+    "protocol": "wifi",
+    "firmware": "1.0.x",
+    "integration": "home-assistant"
+  },
+  "risk": "low",
+  "preconditions": [
+    "Plug and hub are on the same VLAN",
+    "Vendor app account is already signed in"
+  ],
+  "steps": [
+    "Put the plug in pairing mode per the vendor guide.",
+    "Complete pairing in the vendor app, then enable local control if present.",
+    "Add the device to Home Assistant using the vendor integration.",
+    "Toggle the entity and confirm the physical plug switches."
+  ],
+  "verification": "Entity state follows the physical plug within 3 seconds in both directions.",
+  "limits": "Cloud-only firmware may block local control; stop and use the vendor cloud integration instead."
+}

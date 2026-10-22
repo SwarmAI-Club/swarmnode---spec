@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://swarmnode.space/schema/lesson.schema.json",
   "title": "SwarmNode Lesson",
-  "description": "A signed, scoped lesson that must pass a local golden test before it can affect behaviour.",
+  "description": "A signed, scoped lesson that must pass a local golden test before it can affect behaviour. A device_recipe lesson teaches other nodes how to integrate a smart-home device; it must still pass the receiving device's own gate.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -25,6 +25,12 @@
       "pattern": "^sha256:[0-9a-f]{64}$",
       "description": "Content hash of the canonical lesson body."
     },
+    "kind": {
+      "type": "string",
+      "enum": ["behaviour", "device_recipe"],
+      "default": "behaviour",
+      "description": "behaviour = agent instruction; device_recipe = how to integrate a smart-home device."
+    },
     "cue": {
       "type": "string",
       "minLength": 3,
@@ -41,7 +47,7 @@
       "type": "string",
       "minLength": 3,
       "maxLength": 500,
-      "description": "Why this lesson is believed correct, e.g. golden-test result."
+      "description": "Why this lesson is believed correct, e.g. golden-test result or reproduction count."
     },
     "confidence": {
       "type": "string",
@@ -86,6 +92,93 @@
     "reviewed_by": {
       "type": "string",
       "maxLength": 120
+    },
+    "device": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "vendor", "model", "protocol", "integration"],
+      "description": "Reusable device facts only. No IDs, hostnames, addresses, accounts or room names.",
+      "properties": {
+        "category": {
+          "type": "string",
+          "enum": ["light", "plug", "switch", "sensor", "climate", "cover", "lock", "media", "hub", "camera", "other"]
+        },
+        "vendor": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 40
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 60
+        },
+        "protocol": {
+          "type": "string",
+          "enum": ["matter", "zigbee", "zwave", "wifi", "ble", "mqtt", "http", "modbus", "other"]
+        },
+        "firmware": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "Version or range only, e.g. 1.2.x."
+        },
+        "integration": {
+          "type": "string",
+          "enum": ["home-assistant", "tuya", "matter", "mqtt", "http", "manual", "other"]
+        }
+      }
+    },
+    "risk": {
+      "type": "string",
+      "enum": ["low", "medium", "high"],
+      "description": "low = lights/plugs/media; medium = climate/cover; high = locks, heaters, doors, anything unsafe to actuate blindly."
+    },
+    "preconditions": {
+      "type": "array",
+      "maxItems": 6,
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 120
+      },
+      "description": "Generic prerequisites. No credentials, addresses or account names."
+    },
+    "steps": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 200
+      },
+      "description": "Abstract, reproducible steps. Never include secrets, IPs, MACs, entity IDs or URLs with tokens."
+    },
+    "verification": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 300,
+      "description": "Observable expected result the receiving node can check locally."
+    },
+    "limits": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "Known failure modes or firmware limits; say when to stop."
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "required": ["kind"],
+        "properties": {
+          "kind": {
+            "const": "device_recipe"
+          }
+        }
+      },
+      "then": {
+        "required": ["device", "risk", "steps", "verification"]
+      }
+    }
+  ]
 }

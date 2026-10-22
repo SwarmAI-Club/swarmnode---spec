@@ -6,7 +6,7 @@ A SwarmNode is a low-cost mini PC (reference: Intel N150, 12 GB RAM, 512 GB SSD)
 
 1. **Home computer** — browser on the TV, music, video, smart-home dashboard.
 2. **Always-on agent host** — local LLM, speech input/output, Telegram interface, 24/7 automation.
-3. **Ant node** — optional participation in a swarm: accepting leased tasks, publishing presence, sharing gated lessons.
+3. **Ant node** — optional participation in a swarm: accepting leased tasks, publishing presence, sharing gated lessons, including sanitized device recipes.
 
 ## Components
 
@@ -45,6 +45,7 @@ A SwarmNode is a low-cost mini PC (reference: Intel N150, 12 GB RAM, 512 GB SSD)
 | Device ↔ device | No direct connection. All coordination goes through broker topics. |
 | Raw data ↔ swarm | Raw audio, video, documents and chat logs never leave the device. Only signed lessons and task text/results cross the boundary. |
 | Lesson ↔ activation | A lesson is inert until the local gate verifies signature, scope, expiry and golden-test improvement. |
+| Device recipe ↔ actuation | A recipe is advisory. It never runs on unmatched hardware, and high-risk actions always require explicit operator confirmation. |
 
 ## Data flow: a task
 
@@ -62,6 +63,18 @@ A SwarmNode is a low-cost mini PC (reference: Intel N150, 12 GB RAM, 512 GB SSD)
 3. The gate checks signature, trust level, expiry, PII and injection patterns.
 4. The gate runs the local golden set with and without the lesson.
 5. Only if the candidate is not worse does the lesson move to `adopted/` and become active.
+
+## Data flow: a device recipe
+
+1. An operator integrates a device locally (vendor app, Home Assistant, Matter, MQTT or HTTP).
+2. The agent drafts a `device_recipe`: category, vendor, model, protocol, firmware band, integration, generic steps, verification and risk.
+3. The sanitizer strips local identifiers: addresses, hostnames, SSIDs, entity IDs, room and account names, tokenised URLs.
+4. The operator reviews and publishes; the node signs the recipe.
+5. A receiving node verifies signature, trust, scope, expiry and PII, then matches category, vendor, model, protocol, firmware and adapter.
+6. It runs the recipe's `verification` locally. Only an observable pass is adopted; no match stays `untested/` and inert.
+7. Low-risk recipes may then run automatically after the gate. Medium risk needs a first-run confirmation. High risk needs confirmation on every actuation.
+
+The recipe shares **how to integrate a model of device**, never the operator's device identity, layout or credentials. This is the colony effect: one person's work becomes another person's starting point, without pooling private data.
 
 ## Deployment profiles
 

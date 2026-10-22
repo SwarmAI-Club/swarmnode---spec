@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2 — 2026-10-22
+
+- Lessons now have `kind`: `behaviour` (default) or `device_recipe`.
+- Device recipes carry reusable device facts, risk class, generic steps, local verification and known limits; no identifiers or credentials.
+- Added sanitized `examples/device-recipe.example.json`.
+- Documented the colony flow, risk policy (low auto, medium first-run, high every-actuation) and `untested/` state for unmatched hardware.
+- Roadmap Phase 1 adds sanitizer rules and a recipe example; Phase 2 adds adapter registry, verification harness and reproduction tracking.
+
 ## 0.1.1 — 2026-10-22
 
 - Operationalised the roadmap: status table, repository plan, per-phase checklists, target dates and definition of done.
