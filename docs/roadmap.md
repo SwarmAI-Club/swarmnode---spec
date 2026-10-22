@@ -9,8 +9,8 @@ Last updated: 2026-10-22.
 | Item | State | Where |
 |---|---|---|
 | Specification (this repo) | ✅ written, local commit | `/mnt/d/swarmnode-spec` |
-| GitHub organisation and repository name | ⏳ undecided | — |
-| Public push of this repo | ⏳ blocked on the name | — |
+| GitHub organisation and repository name | ✅ `SwarmAI-Club/swarmnode---spec` (rename recommended) | GitHub |
+| Public push of this repo | ✅ 2026-10-22 | [GitHub](https://github.com/SwarmAI-Club/swarmnode---spec) |
 | CI (link check, JSON schema, secret scan) | ⏳ | — |
 | Two external reviewers | ⏳ | — |
 | Reference installer | ⏳ Phase 1 | — |
@@ -42,8 +42,8 @@ Deliverable: a reviewable protocol and architecture.
 - [x] Architecture, trust boundaries and deployment profiles.
 - [x] Protocol v1: topics, payloads, lease/retry, ACL, liveness.
 - [x] Installer guide and lesson schema.
-- [ ] Decide GitHub organisation and repository name.
-- [ ] Run secret scan and publish `swarmnode-spec`.
+- [x] Repository created under `SwarmAI-Club` (name has three hyphens; rename to `swarmnode-spec` recommended).
+- [x] Secret scan and publish: https://github.com/SwarmAI-Club/swarmnode---spec
 - [ ] Add CI: markdown link check, JSON schema validation, `gitleaks`.
 - [ ] Two external reviewers read the lifecycle and ACL model.
 - [ ] Resolve any protocol-level objections before freezing v1.

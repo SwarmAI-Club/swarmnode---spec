@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 — 2026-10-22
+
+- Published the specification publicly at https://github.com/SwarmAI-Club/swarmnode---spec.
+
 ## 0.1.2 — 2026-10-22
 
 - Lessons now have `kind`: `behaviour` (default) or `device_recipe`.
