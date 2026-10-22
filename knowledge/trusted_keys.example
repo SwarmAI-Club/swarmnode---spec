@@ -1,0 +1,3 @@
+# One public key per line, ed25519:<64 hex chars>.
+# Copy this file to trusted_keys.txt on the device. Never put private keys here.
+ed25519:0000000000000000000000000000000000000000000000000000000000000000

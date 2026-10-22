@@ -1,0 +1,30 @@
+# secrets and credentials
+.env
+*.env
+mqtt.env
+agent.env
+*.pem
+*.key
+*.p12
+keys/
+trusted_keys.txt
+
+# models and large binaries
+*.gguf
+*.litertlm
+*.bin
+models/
+
+# runtime
+__pycache__/
+*.pyc
+.venv/
+venv/
+node_modules/
+logs/
+*.log
+
+# editor / OS
+.DS_Store
+.idea/
+.vscode/

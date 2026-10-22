@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://swarmnode.space/schema/lesson.schema.json",
+  "title": "SwarmNode Lesson",
+  "description": "A signed, scoped lesson that must pass a local golden test before it can affect behaviour.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "cue",
+    "lesson",
+    "evidence",
+    "confidence",
+    "scope",
+    "author",
+    "sig",
+    "created",
+    "expires",
+    "source",
+    "version"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "description": "Content hash of the canonical lesson body."
+    },
+    "cue": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 200,
+      "description": "The situation or input pattern this lesson applies to."
+    },
+    "lesson": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 500,
+      "description": "A compact, testable instruction. No prose essays."
+    },
+    "evidence": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 500,
+      "description": "Why this lesson is believed correct, e.g. golden-test result."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["low", "medium", "high"]
+    },
+    "scope": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 8,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9_-]{2,24}$"
+      },
+      "description": "Domains where the lesson may apply, e.g. intent, zh-HK, smart-home."
+    },
+    "author": {
+      "type": "string",
+      "pattern": "^ed25519:[0-9a-f]{64}$"
+    },
+    "sig": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 128,
+      "description": "Ed25519 signature over the canonical lesson body."
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires": {
+      "type": "string",
+      "format": "date"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["own", "endorsed", "community"]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "reviewed_by": {
+      "type": "string",
+      "maxLength": 120
+    }
+  }
+}
