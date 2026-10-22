@@ -79,6 +79,7 @@ Deliverable: the reference implementation is public and a small developer swarm 
 - [ ] SBOM and signed releases with checksums.
 - [ ] Adapter registry: Home Assistant, Tuya, Matter, MQTT, HTTP; device matching by category/vendor/model/protocol/firmware.
 - [ ] Recipe verification harness and risk policy: low auto after gate, medium first-run confirmation, high every-actuation confirmation.
+- [ ] Recipe transport decision: repository-only vs a broker gossip topic with revocation and replay protection.
 - [ ] Reproduction tracking for reputation (no token, no raw data).
 - [ ] Invite-only developer swarm, 3–20 nodes.
 - [ ] 30-day soak: lease/retry, LWT, lesson gate, no data loss.

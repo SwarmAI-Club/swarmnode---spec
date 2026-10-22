@@ -76,6 +76,8 @@ A SwarmNode is a low-cost mini PC (reference: Intel N150, 12 GB RAM, 512 GB SSD)
 
 The recipe shares **how to integrate a model of device**, never the operator's device identity, layout or credentials. This is the colony effect: one person's work becomes another person's starting point, without pooling private data.
 
+**Transport today:** recipes are distributed through the knowledge repository (pull, review, sign). A broker topic for live recipe gossip is **not** part of protocol v1; it is a Phase 2 decision, so that spam, revocation and replay can be designed properly.
+
 ## Deployment profiles
 
 | Profile | Broker | Dispatcher | Use |
