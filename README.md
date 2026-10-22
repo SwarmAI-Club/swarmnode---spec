@@ -16,7 +16,8 @@ This repository covers **Part II** of SwarmNode:
 
 - device-owned memory, experience, harness tuning and LLM upgrades;
 - the MQTT task fabric (presence, heartbeat, shared queue, lease/retry, pheromone);
-- the signed-lesson knowledge gate.
+- the signed-lesson knowledge gate;
+- the first application: sanitized smart-device recipes.
 
 It does **not** cover SwarmAI's GPU compute marketplace, and it does not include model weights, credentials or customer data.
 
@@ -24,6 +25,7 @@ It does **not** cover SwarmAI's GPU compute marketplace, and it does not include
 
 | Path | What |
 |---|---|
+| [docs/applications.md](docs/applications.md) | First application, flywheel, what comes later |
 | [docs/architecture.md](docs/architecture.md) | Components, trust boundaries, data flow |
 | [docs/protocol.md](docs/protocol.md) | MQTT v1 topics, payloads, lifecycle, ACL |
 | [docs/installer.md](docs/installer.md) | Reference install on Windows 11 + WSL2 |

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.4 — 2026-10-22
+
+- Documented smart-device recipes as the colony's first practical application, including the flywheel and what comes later (`docs/applications.md`).
+- Added a real-device pilot (KD Tuya Wi-Fi + Matter E27, 2026-10-25) and the first-application framing to the roadmap.
+
 ## 0.1.3 — 2026-10-22
 
 - Published the specification publicly at https://github.com/SwarmAI-Club/swarmnode---spec.

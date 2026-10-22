@@ -17,6 +17,8 @@ Last updated: 2026-10-22.
 | Self-hosted swarm compose + ACL generator | ⏳ Phase 1 | — |
 | Hardware BOM | ⏳ Phase 1–2 | — |
 | Device recipe schema + example | ✅ | `knowledge/` |
+| First application framing | ✅ | `docs/applications.md` |
+| Device pilot (KD Tuya E27) | ⏳ 2026-10-25 | — |
 | Recipe sanitizer + adapter registry | ⏳ Phase 2 | — |
 | Core implementation (Apache-2.0) | ⏳ Phase 2 | — |
 | Invite-only developer swarm | ⏳ Phase 2 | — |
@@ -77,7 +79,7 @@ Deliverable: the reference implementation is public and a small developer swarm 
 - [ ] Unit tests for task lifecycle, lease expiry, dedupe and lesson gate.
 - [ ] Integration test with a local broker (TLS, ACL, LWT, shared subscription).
 - [ ] SBOM and signed releases with checksums.
-- [ ] Adapter registry: Home Assistant, Tuya, Matter, MQTT, HTTP; device matching by category/vendor/model/protocol/firmware.
+- [ ] First application hardening: sanitizer, adapter registry (Home Assistant, Tuya, Matter, MQTT, HTTP), device matching by category/vendor/model/protocol/firmware.
 - [ ] Recipe verification harness and risk policy: low auto after gate, medium first-run confirmation, high every-actuation confirmation.
 - [ ] Recipe transport decision: repository-only vs a broker gossip topic with revocation and replay protection.
 - [ ] Reproduction tracking for reputation (no token, no raw data).

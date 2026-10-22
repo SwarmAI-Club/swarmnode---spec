@@ -4,6 +4,10 @@ SwarmNode shares **lessons**, not raw data. A lesson is a small, signed, scoped 
 
 This is where the colony earns its name: one operator works out how to integrate a device, and every other node can inherit that work — after verifying it locally.
 
+## Why device recipes come first
+
+Smart devices are the colony's first practical application. The outcome is observable, the risk can be graded, and a recipe is reusable across homes with the same model. Every new device integration makes the shared library more useful, which makes the next device easier — the first real network effect. See [../docs/applications.md](../docs/applications.md).
+
 ## Two kinds of lesson
 
 | `kind` | Purpose | Example |
