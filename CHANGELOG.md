@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1 — 2026-10-22
+
+- Operationalised the roadmap: status table, repository plan, per-phase checklists, target dates and definition of done.
+- Phase 1 now includes the knowledge and hardware repositories, ACL generator and three external installs.
+
 ## 0.1.0 — 2026-10-22
 
 - Initial public specification.

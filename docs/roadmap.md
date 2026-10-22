@@ -2,39 +2,103 @@
 
 The project opens in stages. Each stage has an explicit gate; nothing moves forward on optimism alone.
 
-## Phase 0 — Specification (now)
+Last updated: 2026-10-22.
 
-- Publish architecture, protocol, installer guide and lesson schema.
-- Collect review comments from node operators and security reviewers.
-- No public swarm, no implementation code in this repository.
+## Status at a glance
 
-**Gate to Phase 1:** no unresolved protocol-level objection; at least two external reviewers have read the lifecycle and ACL model.
+| Item | State | Where |
+|---|---|---|
+| Specification (this repo) | ✅ written, local commit | `/mnt/d/swarmnode-spec` |
+| GitHub organisation and repository name | ⏳ undecided | — |
+| Public push of this repo | ⏳ blocked on the name | — |
+| CI (link check, JSON schema, secret scan) | ⏳ | — |
+| Two external reviewers | ⏳ | — |
+| Reference installer | ⏳ Phase 1 | — |
+| Self-hosted swarm compose + ACL generator | ⏳ Phase 1 | — |
+| Hardware BOM | ⏳ Phase 1–2 | — |
+| Core implementation (Apache-2.0) | ⏳ Phase 2 | — |
+| Invite-only developer swarm | ⏳ Phase 2 | — |
+| Public registration / federation | ⏳ Phase 3 | — |
 
-## Phase 1 — Reference installer (weeks 1–6)
+## Repository plan
 
-- Publish `swarmnode-installer` (PowerShell + WSL scripts, Apache-2.0).
-- Publish a self-hosted swarm guide with a Compose file.
-- Secret scan, dependency audit, reproducible reference build.
-- Three external users complete a self-hosted install unaided.
+| Repository | Contents | Licence | Opens |
+|---|---|---|---|
+| `swarmnode-spec` | This repository: architecture, protocol, installer guide, lesson schema | Apache-2.0 + CC-BY-4.0 docs | Phase 0 |
+| `swarmnode-installer` | PowerShell bootstrap, WSL setup, service templates, self-hosted Compose | Apache-2.0 | Phase 1 |
+| `swarmnode-knowledge` | Lesson schema, gate reference, example lessons | Apache-2.0 + CC-BY-4.0 | Phase 1 |
+| `swarmnode-hardware` | BOM, enclosure notes, port/power spec; solar version as spec only | CERN-OHL-S or CC-BY-4.0 (decide at Phase 1) | Phase 1–2 |
+| `swarmnode-core` | agent-core, MQTT bridge, dispatcher, knowledge gate | Apache-2.0 | Phase 2 |
+| Private operations | Broker, relay, billing, support portal, signing keys, customer records | proprietary | never |
 
-**Gate to Phase 2:** install succeeds from a clean Windows 11 machine; no credentials or internal addresses in the repository; installer logs contain no secrets.
+Rules: no model weights, no credentials, no customer data, no internal addresses in any public repository.
 
-## Phase 2 — Core implementation (weeks 6–12)
+## Phase 0 — Specification (current)
 
-- Open `swarmnode-core`: agent-core, MQTT bridge, dispatcher, knowledge gate.
-- Signed releases and SBOM.
-- Invite-only developer swarm (3–20 nodes).
-- 30-day soak with lease/retry, LWT and lesson-gate tests.
+Deliverable: a reviewable protocol and architecture.
 
-**Gate to Phase 3:** 20+ nodes, 30 days without data loss or repeatable crash, independent security review, documented incident response.
+- [x] Architecture, trust boundaries and deployment profiles.
+- [x] Protocol v1: topics, payloads, lease/retry, ACL, liveness.
+- [x] Installer guide and lesson schema.
+- [ ] Decide GitHub organisation and repository name.
+- [ ] Run secret scan and publish `swarmnode-spec`.
+- [ ] Add CI: markdown link check, JSON schema validation, `gitleaks`.
+- [ ] Two external reviewers read the lifecycle and ACL model.
+- [ ] Resolve any protocol-level objections before freezing v1.
 
-## Phase 3 — Federation
+**Gate to Phase 1:** repository is public, CI is green, and at least two external reviewers have signed off on the lifecycle and ACL model.
 
-- Public registration with operator approval, quotas and reputation.
-- Multiple swarms federate; a node can join more than one swarm.
-- Contribution accounting by reputation and credits.
+## Phase 1 — Reference installer (target 2026-12-03)
+
+Deliverable: a stranger can install a self-hosted swarm from a clean Windows 11 machine.
+
+- [ ] Create `swarmnode-installer` (Apache-2.0).
+- [ ] PowerShell bootstrap: WSL2, Ubuntu 24.04, Python venv, directories, service user.
+- [ ] WSL setup: runtime install, model download with SHA-256 check, `agent.env` / `mqtt.env` with `0600`.
+- [ ] Compose file for a self-hosted Mosquitto broker with TLS.
+- [ ] ACL generator: one credential per node, controller-only queue writes.
+- [ ] Service templates: agent, bridge, optional dispatcher, restart policy, log hygiene.
+- [ ] Publish `swarmnode-knowledge` with schema and non-sensitive example lessons.
+- [ ] Publish `swarmnode-hardware` BOM and power/port notes (no solar build instructions).
+- [ ] Run `gitleaks`, dependency audit and a reproducible reference build.
+- [ ] Three external users complete the install unaided; record every failure.
+
+**Gate to Phase 2:** install succeeds from a clean Windows 11 machine; no credentials or internal addresses in the repository; installer logs contain no secrets; three external installs recorded.
+
+## Phase 2 — Core implementation (target 2027-01-14)
+
+Deliverable: the reference implementation is public and a small developer swarm runs on it.
+
+- [ ] Open `swarmnode-core`: agent-core, MQTT bridge, dispatcher, knowledge gate.
+- [ ] Unit tests for task lifecycle, lease expiry, dedupe and lesson gate.
+- [ ] Integration test with a local broker (TLS, ACL, LWT, shared subscription).
+- [ ] SBOM and signed releases with checksums.
+- [ ] Invite-only developer swarm, 3–20 nodes.
+- [ ] 30-day soak: lease/retry, LWT, lesson gate, no data loss.
+- [ ] Independent security review; publish a summary.
+- [ ] Incident response runbook.
+
+**Gate to Phase 3:** 20+ nodes, 30 days without data loss or repeatable crash, independent security review closed, runbook published.
+
+## Phase 3 — Federation (2027-Q1 or later)
+
+Deliverable: independent swarms can interoperate without a central account.
+
+- [ ] Operator-approved public registration with quotas.
+- [ ] Reputation and contribution credits (no token).
+- [ ] Federation: a node may join more than one swarm.
+- [ ] Abuse handling: rate limits, revocation, takedown process.
+- [ ] Privacy review of any new metadata.
 
 **Explicit non-goal:** a financial token. If that ever changes, it requires legal review and a separate design document; it is not on this roadmap.
+
+## Definition of done (every phase)
+
+- Documented: a new operator can follow the docs without asking the author.
+- Tested: the gate is automated, not a manual opinion.
+- Private by default: no raw data leaves the device unless the operator opts in.
+- Reversible: every migration has a rollback path.
+- No secrets in git, logs or releases.
 
 ## What stays private
 
